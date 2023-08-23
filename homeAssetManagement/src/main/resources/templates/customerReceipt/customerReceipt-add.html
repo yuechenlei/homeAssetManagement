@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head data-th-replace="~{commons/header::common_header(title='客户小票条目新增')}"></head>
+<body>
+
+<header data-th-replace="~{commons/nav::common_nav}"></header>
+
+	<div class="container ">
+	
+	  <h6 class="text-info mt-3">客户小票条目新增</h6>
+	
+		<form class="row g-3 bg-light mt-2 mb-3 needs-validation " novalidate autocomplete="on" target="_self" 
+		      action="/customerReceipt/add" method="post" name="customerReceipt" id="customerReceiptAddForm">
+		  
+		    <div class="form-floating col-md-12">
+		      <input type="text" class="form-control" id="market_name" name="marketName" list="marketNameList" 
+		                                              placeholder="p" aria-describedby="market_name" required>
+		      <label for="market_name" >*商店名称</label>
+		      <div class="invalid-feedback">在哪个商店买的？</div>
+		      <datalist id="marketNameList" class="datalist">
+                <option value="Aldi">
+                <option value="Edeka">
+                <option value="Lidl">
+                <option value="Rewe">
+                <option value="Rossman">
+                <option value="DM">
+                <option value="Anh Linh Asiamarkt">
+                <option value="NP">
+              </datalist>
+            </div>
+            
+			<div class="form-floating  col-md-4">
+				<input type="text" class="form-control" id="terminalId" name="terminalId" placeholder="p" required />
+				<label for="terminalId" >*TerminalId</label> 
+				<div class="invalid-feedback">终端ID 可唯一标识一笔交易</div>
+			</div>
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="posInfo" name="posInfo" placeholder="p" />
+				<label for="posInfo" >Pos-Info</label>
+				<div class="invalid-feedback">posInfo</div>
+			</div>
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="transactionNumber" name="transactionNumber" placeholder="p" required/>
+				<label for="transactionNumber" >*TA-Nr Trace-Nr. </label>
+				<div class="invalid-feedback">交易码</div>
+			</div>
+			
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="receiptNumber" name="receiptNumber" placeholder="p" />
+				<label for="receiptNumber" >Bon-Nr. Belegnummer</label>
+				<div class="invalid-feedback">单据编码</div>
+			</div>
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="checkoutCounter" name="checkoutCounter" placeholder="p" />
+				<label for="checkoutCounter" >Kasse</label>
+				<div class="invalid-feedback">收银台号码</div>
+			</div>
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="cashier" name="cashier" placeholder="p" />
+				<label for="cashier" >Bedienung</label>
+				<div class="invalid-feedback">收银员编码</div>
+			</div>
+			
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="payBy" name="paymentMethod.payBy" placeholder="p" list="payByList" />
+				<label for="payBy" >payBy</label>
+				<div class="invalid-feedback">payBy</div>
+				<datalist id="payByList" class="datalist">
+                  <option value="Card">Kartenzahlung</option>
+                  <option value="Cash">Bargeld</option>
+                </datalist>
+			</div>
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="contactType" name="paymentMethod.contactType" 
+				                                                placeholder="p" list="contactTypeList" />
+				<label for="contactType" >contactType</label>
+				<div class="invalid-feedback">contactType</div>
+				<datalist id="contactTypeList" class="datalist">
+                  <option value="contactless">Kontaktlos</option>
+                </datalist>
+			</div>
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="paymentMethodE" name="paymentMethod.paymentMethodE" placeholder="p" 
+				                                                            list="paymentMethodEList" required/>
+				<label for="paymentMethodE" >*paymentMethodE</label>
+				<div class="invalid-feedback">paymentMethodE</div>
+				<datalist id="paymentMethodEList" class="datalist">
+                  <option value="Cash">Bargeld</option>
+                  <option value="GiroCard">Girocard</option>
+                  <option value="CreditCard">Kreditkarte</option>
+                  <option value="NFC">Kontaktlos</option>
+                  <option value="Advance">Vorkasse</option>
+                  <option value="Financing">Finanzierung</option>
+                  <option value="PayPal">PayPal</option>
+                  <option value="Giropay">Giropay</option>
+                  <option value="Online">Online</option>
+                </datalist>
+			</div>
+			
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="p" />
+				<label for="cardNumber" >Kartennummer PAN</label>
+				<div class="invalid-feedback">cardNumber</div>
+			</div>
+			<div class="form-floating col-md-1">
+				<input type="text" class="form-control" id="card" name="card" value="0" placeholder="p" />
+				<label for="card" >Karte</label>
+				<div class="invalid-feedback">卡序列号</div>
+			</div>
+			<div class="form-floating col-md-2">
+				<input type="number" class="form-control" id="amount" name="amount" value="0.00" 
+				       placeholder="p" step="0.01"  min="0.00" required>
+				<label for="amount" >*总额Betrag</label>
+				<div class="invalid-feedback">购买这个产品产生的花费</div>
+			</div>
+			<div class="form-floating col-md-2">
+				<input type="text" class="form-control" id="unitOfPrice" name="unitOfPrice" list="unitOfPriceList" 
+				                                        value="Euro" placeholder="p" required>
+				<label for="unitOfPrice" >*单位</label>
+				<div class="invalid-feedback">Please provide a valid unitOfPrice.</div>
+				<datalist id="unitOfPriceList" class="datalist">
+                  <option value="Euro">
+                </datalist>
+			</div>
+			<div class="form-floating col-md-3">
+				<input type="datetime-local" class="form-control" id="transactionDate" name="transactionDate" 
+				       value="" placeholder="p" step="1" required>
+				<label for="transactionDate" >*交易日期</label>
+				<div class="invalid-feedback">Please provide a valid transactionDate.</div>
+			</div>
+			
+            <div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="chipData" name="chipData" value="" placeholder="p" >
+				<label for="chipData" >EMV_AID</label> 
+				<div class="invalid-feedback">Please provide a valid EMV_AID. 芯片数据</div>
+			</div>
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="contractor" name="contractor" value="" placeholder="p" >
+				<label for="contractor" >VU_Nr.</label> 
+				<div class="invalid-feedback">Please provide a valid VU_Nr. 签约公司编号</div>
+			</div>
+			<div class="form-floating col-md-4">
+				<input type="text" class="form-control" id="authorizationNumber" name="authorizationNumber" value="" placeholder="p" >
+				<label for="authorizationNumber" >Genehmig. Autorisier.</label> 
+				<div class="invalid-feedback">授权码</div>
+			</div>
+			
+			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+			    <button class="btn btn-primary col-md-2" type="reset" id="customer_receipt_reset" 
+			                                                       onclick="customerReceiptReset()">清 空</button>
+				<button class="btn btn-primary col-md-2" type="submit"   id="customerReceiptSubmit">提 交</button>
+				<a class="btn btn-primary col-md-2" href="/companyInformation/toCompanyInformation">略 过</a>
+			</div>
+		</form>
+	</div>
+
+
+	<script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.js"></script>
+	<script type="text/javascript" src="/jQuery/jquery-3.6.0.js"></script>
+	<script type="text/javascript" src="/js/cr-add.js"></script>
+</body>
+</html>
